@@ -1,0 +1,23 @@
+# build nginx docker image and push to docker hub
+name: Build and Push Nginx Docker Image
+
+on:
+  workflow_dispatch
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: build image
+      run: |
+            docker build ./ -t mm009780/hellonginx01:252131
+
+    - name: push image to docker hub
+      run: |
+            docker login -u mm009780 -p ${{ secrets.DOCKER_HUB_TOKEN }}
+            docker push mm009780/hellonginx01:252131
