@@ -12,12 +12,17 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+    - name: Get short SHA
+      id: short_sha  # Assign an ID to the step
+      run: |
+        SHORT_SHA=$(git rev-parse --short HEAD)
+        echo "::set-output name=sha::$SHORT_SHA" # Set the output variable
 
     - name: build image
       run: |
-            docker build ./ -t mm009780/hellonginx01:252131
+            docker build ./ -t mm009780/hellonginx01:${{ steps.short_sha.outputs.sha }}
 
     - name: push image to docker hub
       run: |
             docker login -u mm009780 -p ${{ secrets.DOCKER_HUB_TOKEN }}
-            docker push mm009780/hellonginx01:252131
+            docker push mm009780/hellonginx01:${{ steps.short_sha.outputs.sha }}
