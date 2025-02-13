@@ -16,7 +16,7 @@ jobs:
       id: short_sha  # Assign an ID to the step
       run: |
         SHORT_SHA=$(git rev-parse --short HEAD)
-        echo "::set-output name=sha::$SHORT_SHA" # Set the output variable
+        echo "::set-output name=sha::$SHORT_SHA" # Set the output variable SHORT_SHA
 
     - name: build image
       run: |
