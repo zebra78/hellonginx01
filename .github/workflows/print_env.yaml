@@ -8,5 +8,4 @@ jobs:
     steps:
     - name: Print environment variables
       run: |
-        printenv
-        | git rev-parse --short HEAD
+        git rev-parse --short HEAD
