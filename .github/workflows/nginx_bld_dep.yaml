@@ -27,25 +27,6 @@ jobs:
             docker login -u mm009780 -p ${{ secrets.DOCKER_HUB_TOKEN }}
             docker push mm009780/hellonginx01:${{ steps.short_sha.outputs.sha }}
 
-    - name: Checkout repository
-      uses: actions/checkout@v2
-      with:
-        repository: mm009780/hellomaven01
-        token: ${{ secrets.GITHUB_TOKEN }}
-        path: hellomaven0111
 
-    - name: Copy files
-      run: |
-        cd hellomaven0111
-        sed -i "s/tag:.*/tag:\\ $SHORT_SHA/g" values.yaml
-
-    - name: Commit and push changes
-      run: |
-        #cd hellomaven0111
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add .
-        git commit -m "Update files from workflow"
-        git push origin main
 
 
